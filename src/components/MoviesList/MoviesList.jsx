@@ -11,7 +11,7 @@ const MoviesList = ({ Movies }) => {
                                 ? 'https://dummyimage.com/400x600/7d7d7d/fff.jpg&text=image+not+found'
                                 : `https://image.tmdb.org/t/p/w400/${movie.poster_path}`}
                                 alt={movie.title} />
-                            {movie.title}
+                            <span> {movie.title}</span>
                         </StyledLink>
                     </ListItem>
                 })}

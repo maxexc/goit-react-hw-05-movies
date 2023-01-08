@@ -6,6 +6,10 @@ export const CardWrapper = styled.div`
   gap: 20px;
   margin-top: 10px;
   margin-bottom: 30px;
+  > img {
+    width: 280px;
+    border-radius: 8px;
+  }
 `;
 
 export const CardInfo = styled.div`
