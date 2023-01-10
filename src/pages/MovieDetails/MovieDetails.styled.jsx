@@ -51,6 +51,10 @@ export const LinkWrapper = styled.div`
   gap: 75px;
   /* gap: 10px; */
   margin-bottom: 20px;
+  padding: 10px 0;
+  margin-right: 14px;
+  border-bottom: 1px rgb(200, 10, 10) solid;
+  border-top: 1px rgb(200, 10, 10) solid;
 `;
 
 export const MovieLink = styled(NavLink)`
@@ -67,6 +71,7 @@ export const MovieLink = styled(NavLink)`
   font-size: 18px;
   font-weight: 500;
   color: black;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.4);
   transition: box-shadow 150ms linear, color 250ms linear, 
   border 250ms linear, transform 250ms ease-in-out;
   &:before {

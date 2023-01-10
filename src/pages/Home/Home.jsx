@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import Pagination from "components/Pagination/Pagination"
-// import { toast } from 'react-hot-toast';
 import { toast } from "react-toastify";
 
 import MoviesList from "components/MoviesList/MoviesList"
@@ -26,6 +25,9 @@ const Home = () => {
                 setTrendMovies(() => [...response.results])
                 setTotal_pages(response.total_pages)
                 console.log(total_pages)
+                if (page === 1 ) {
+                toast.success(`We found total results ${response.total_results}`
+                , { toastId: customId, position: "top-left", });}
                 
                 if (trendMovies.length !== 0) {
                     return setCheckResponse(true);                                 

@@ -1,6 +1,5 @@
 import { useState, useEffect, Suspense } from 'react';
 import { Outlet, useParams, useLocation } from 'react-router-dom';
-// import { toast } from 'react-hot-toast';
 import {AiFillBackward} from 'react-icons/ai'
 import { MovieCard } from 'components/MovieDetails/MovieDetails';
 import Loader from 'components/Loader/Loader';
@@ -14,6 +13,7 @@ import {
 } from './MovieDetails.styled';
 
 import { getMovieDetails } from 'services/movieApi';
+import { toast } from 'react-toastify';
 
 export default function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState({
@@ -28,17 +28,21 @@ export default function MovieDetails() {
   const [loader, setLoader] = useState(true);
   const { movieId } = useParams();
 
+  const customId = "custom-id-yes";
+
   useEffect(() => {
     async function fetchMovieDetailsCard() {
       try {
         const movieDetails = await getMovieDetails(movieId);
         if (Object.keys(movieDetails).length === 0) {
-          return 
-          // toast('Sorry, movie not found! Please try again later');
+          console.log(Object.keys(movieDetails));
+          return ;
         }
         setMovieDetails(movieDetails);
       } catch (error) {
         console.log(error);
+        toast.info('Oops no results found 😥, please try again later!'
+        , { toastId: customId });
       } finally {
         setLoader(false);
       }
@@ -62,7 +66,6 @@ export default function MovieDetails() {
   return (
     <>
       <main style={{ backgroundColor: "#fff", paddingLeft: "14px" }}>
-        {/* <BackBtn type="button" onClick={onGoBack}> */}
         <BackBtn to={backLinkLocation}>
           <AiFillBackward size={18} style={{ marginBottom: "-2px" }} />
             Go Back

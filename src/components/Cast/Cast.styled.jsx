@@ -6,6 +6,7 @@ export const List = styled.ul`
   justify-content: center;
   gap: 20px;
   padding: 20px 0;
+  margin-right: 10px;
   >li {
     list-style: none;
     >img {

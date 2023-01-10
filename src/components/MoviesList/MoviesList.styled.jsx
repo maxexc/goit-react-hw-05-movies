@@ -7,7 +7,7 @@ export const List = styled.ul`
   justify-content: center;
   gap: 20px;
   padding: 20px 0;
-  background-color: #fff;
+  /* background-color: #fff; */
 `
 export const MovieItem = styled.li`
     margin: 0 auto;
