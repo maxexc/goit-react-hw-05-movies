@@ -33,7 +33,7 @@ export const SearchBar = ({ onSubmit }) => {
         onChange={e => setQuery(e.target.value)}
       />
       <SearchBtn type="submit">
-        <FcSearch size={30} />TEST
+        <FcSearch size={30} />
       </SearchBtn>
     </SearchForm>    
   );
