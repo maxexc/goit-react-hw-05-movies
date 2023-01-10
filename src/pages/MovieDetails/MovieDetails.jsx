@@ -54,7 +54,7 @@ export default function MovieDetails() {
 
   const location = useLocation();
   // console.log(location);
-  const backLinkLocation = location.state?.from ?? '/';  
+  const backLinkLocation = location.state?.from ?? '/movies';  
   // console.log(backLinkLocation);
 
   const { poster_path, title, release_date, vote_average, overview, genres } =
@@ -87,8 +87,8 @@ export default function MovieDetails() {
 
         <MovieTitle>Additional information</MovieTitle>
         <LinkWrapper>
-          <MovieLink to="cast">Cast</MovieLink>
-          <MovieLink to="reviews">Reviews</MovieLink>
+          <MovieLink to="cast" state={{ from: backLinkLocation }}>Cast</MovieLink>
+          <MovieLink to="reviews" state={{ from: backLinkLocation }}>Reviews</MovieLink>
         </LinkWrapper>
 
         <Suspense fallback={<Loader />}>

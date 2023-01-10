@@ -21,12 +21,13 @@ export const App = () => {
       <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<SharedLayout/>}>
-        <Route index element={<Home />}/>
-        <Route path="movies" element={<Movies />}/>
-        <Route path="movies/:movieId" element={<MovieDetails/>}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
-        </Route>
+        <Route index element={<Home/>}/>
+          <Route path="movies" element={<Movies />}/>
+            <Route path="/movies/:movieId" element={<MovieDetails/>}>
+                <Route path="/movies/:movieId/cast" element={<Cast />} />
+                <Route path="/movies/:movieId/reviews" element={<Reviews />} />
+            </Route>
+          {/* </Route> */}
         <Route path="*" element={<NotFound />}/>
         </Route>  
       </Routes>
@@ -39,6 +40,3 @@ export const App = () => {
 };
 
 // <Suspense fallback={<div>Loading...</div>}></Suspense> 
-// import { Navigate, Route, Routes } from "react-router-dom";
-// <Route index element={<Navigate to="home"/>}/>
-// <Route path="home" element={<Home />}/>
