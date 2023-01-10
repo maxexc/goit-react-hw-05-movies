@@ -4,7 +4,7 @@ import { CardInfo, CardWrapper } from './MovieDetails.styled';
 export const MovieCard = ({ poster, title, year, vote, overview, genres }) => {
   return (
     <CardWrapper>
-      <img src={poster} alt={title} width="200" />
+      <img src={poster} alt={title} />
       <CardInfo>
         <h2>
           {title} ({year})

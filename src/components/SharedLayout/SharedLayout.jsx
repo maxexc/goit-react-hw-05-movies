@@ -7,11 +7,11 @@ import Loader from 'components/Loader/Loader';
 
 export const SharedLayout = () => {
   return (
-    <Container>
+    <Container >
       <Header>
         <Navigation>
           <Link to="/" end>
-            <FcFilmReel />
+            <FcFilmReel size={34}/>
           </Link>
           <span>
           <Link to="/" end>

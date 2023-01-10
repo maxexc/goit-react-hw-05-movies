@@ -8,5 +8,9 @@ export const List = styled.ul`
   padding: 20px 0;
   >li {
     list-style: none;
+    >img {
+      width: 100px;
+      height: 150px;
+    }
   }
 `;

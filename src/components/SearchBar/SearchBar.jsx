@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { SearchBtn, SearchForm, SearchInput } from './SearchBar.styled';
-import { BsSearch } from 'react-icons/bs';
+import { FcSearch } from 'react-icons/fc';
 import { toast } from 'react-hot-toast';
 
 export const SearchBar = ({ onSubmit }) => {
@@ -11,18 +11,19 @@ export const SearchBar = ({ onSubmit }) => {
   const onFormSubmit = e => {
     e.preventDefault();
     const searchQuery = query.toLowerCase().trim();
-    if (searchQuery === '') {
-      return toast.error("It cannot be empty query! Example: 'Batman'!");
+    if (searchQuery === '') {      
+      return  toast.success('It cannot be empty. Please try again.',
+      { iconTheme: {
+        primary: '#ecc92b',
+        secondary: '#FFFAEE' }, });
+      // {icon: '💡' }  
     }
     onSubmit(searchQuery);
     setQuery('');
   };
 
   return (
-    <SearchForm onSubmit={onFormSubmit}>
-      <SearchBtn type="submit">
-        <BsSearch size={22} />
-      </SearchBtn>
+    <SearchForm onSubmit={onFormSubmit}>      
       <SearchInput
         type="text"
         autoComplete="off"
@@ -31,7 +32,10 @@ export const SearchBar = ({ onSubmit }) => {
         value={query}
         onChange={e => setQuery(e.target.value)}
       />
-    </SearchForm>
+      <SearchBtn type="submit">
+        <FcSearch size={30} />
+      </SearchBtn>
+    </SearchForm>    
   );
 };
 

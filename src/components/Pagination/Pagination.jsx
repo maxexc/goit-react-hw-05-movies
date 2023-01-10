@@ -1,11 +1,11 @@
 import { PaginationPanel, PaginationWrapper } from "./Pagination.styled";
 
-const Pagination = ({ page, onChange  }) => {
-    const count = 100
+const Pagination = ({ page, onChange, total_pages  }) => {
+    // const count = 100
     return (
         <PaginationWrapper>
             <PaginationPanel
-                count={count}
+                count={total_pages}
                 size="large"
                 page={page}
                 variant="outlined"

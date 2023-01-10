@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import { List } from './Cast.styled';
 import Loader from 'components/Loader/Loader';
 
 import { getMovieCredits } from 'services/movieApi';
 
-
+const customId = "custom-id-yes";
 
 export default function Cast() {
   const [casts, setCasts] = useState([]);
@@ -21,7 +22,8 @@ export default function Cast() {
         const casts = await getMovieCredits (movieId);
         if (casts.length === 0) {
           setError(true);
-          return toast('Ooops, there are no cast! Please, try again later');
+          return toast.warn('Ooops, there are no cast! Please, try again later',
+          {toastId: customId});
         }
         setCasts(casts);
       } catch (error) {
@@ -47,14 +49,14 @@ export default function Cast() {
                     : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png'
                 }
                 alt={cast.name}
-                width="100"
-                height="150"              />
+                />
               <h4>{cast.name}</h4>
               <p>Character: {cast.character}</p>
             </li>
           ))}
         </List>
       )}
+      <ToastContainer autoClose={2000} position="top-center" theme="light" />
       {error && <p>We don't have cast for this movie </p>}
       {loader && <Loader />}
     </>

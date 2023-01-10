@@ -2,12 +2,15 @@ import styled from 'styled-components';
 
 export const SearchForm = styled.form`
   display: flex;
+  margin: 0 auto;
   align-items: center;
   width: 100%;
   max-width: 300px;
   background-color: #fff;
-  border: 2px solid orangered;
-  border-radius: 3px;
+  padding-left: 16px;
+  /* border: 2px solid rgb(200, 10, 10); */
+  border: 2px solid rgb(63, 81, 181);
+  border-radius: 26px;
   overflow: hidden;
 `;
 

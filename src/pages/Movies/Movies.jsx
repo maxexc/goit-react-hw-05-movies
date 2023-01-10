@@ -6,13 +6,14 @@ import { getSearchMovie } from "services/movieApi";
 
 import { SearchBar } from "components/SearchBar/SearchBar";
 import MoviesList from "components/MoviesList/MoviesList"
-
-
-
+import Pagination from "components/Pagination/Pagination";
 
 const Movies = () => {
+    const [page, setPage] = useState(1);
+    const [total_pages, setTotal_pages] = useState(null)
     const [movies, setMovies] = useState([])
     const [responseEmpty, setResponseEmpty] = useState(false)
+    const [responsePagination, setResponsePagination] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const searchedMovie = searchParams.get("query") ?? ""
     
@@ -24,17 +25,24 @@ const Movies = () => {
 
     useEffect(() => {
         if (!searchedMovie) return
-        const controller = new AbortController();
         async function getMoviesById() {
             
             try {
-                const response = await getSearchMovie(searchedMovie, controller.signal)
+                const response = await getSearchMovie(searchedMovie, page)
                 
                 console.log(response)
-                setMovies(response)
+                setMovies(response.results)
+                setTotal_pages(response.total_pages)
+                console.log(total_pages)
 
-                if (response.length === 0) {
+                if (response.total_pages === 0) {
                     setResponseEmpty(true)
+                }
+                if (response.total_pages !== 0) {
+                    setResponsePagination(true)
+                }
+                if (response.total_pages === 0) {
+                    setResponsePagination(false)
                 }
                 
             } catch (e) {
@@ -42,16 +50,21 @@ const Movies = () => {
           }    
        }
        getMoviesById()
-       return () => controller.abort()
-    },[searchedMovie])
+       return 
+    },[searchedMovie, page, total_pages])
 
-   
+    const handleChange = (e, p) => {
+        setPage(p);
+    };
 
     return (
-        <>   <Suspense fallback={<div>Loading subpage...</div>}>
-            <SearchBar onSubmit={updateQueryString} />
-            <MoviesList Movies={movies}/>
-            {responseEmpty && <h1 style={{ textAlign: "center" }}>No results were found for {searchedMovie}</h1>}
+        <>   
+            <Suspense fallback={<div>Loading subpage...</div>}>
+                <SearchBar onSubmit={updateQueryString} />
+                {responsePagination && <Pagination page={page} total_pages={total_pages} onChange={handleChange} />}
+                <MoviesList Movies={movies}/>
+                {responseEmpty && <h1 style={{ textAlign: "center" }}>No results were found for {searchedMovie}</h1>}
+                {responsePagination && <Pagination page={page} total_pages={total_pages} onChange={handleChange} />}
             </Suspense>
         </>
     )

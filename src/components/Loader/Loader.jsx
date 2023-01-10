@@ -1,4 +1,4 @@
-import { DotLoader } from 'react-spinners';
+import { PuffLoader } from 'react-spinners';
 import { LoaderStyle } from './Loader.styled';
 
 const Loader = () => {
@@ -8,7 +8,7 @@ const Loader = () => {
   };
   return (
     <LoaderStyle>
-      <DotLoader
+      <PuffLoader
         color={'#3f51b5'}
         loading={true}
         cssOverride={override}

@@ -4,20 +4,10 @@ const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = 'f87210516a7f6fda7a5c975f08793382';
 const setLanguage = 'en-US'
 
-// useEffect(() => {
-//     axios
-//       .get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`)
-//       .then(response => {
-//         setVideos(response.data.results);
-//         console.log(response.data.results);
-//       });
-//   }, []);
-
-export const getTrendMovies = async (page = 1, signal) => {
-   
+export const getTrendMovies = async (page = 1) => {
+  try { 
     const response = await axios.get(
         `${BASE_URL}trending/movie/day`, {
-            signal,
             params: {
               api_key: API_KEY,
               language: setLanguage,
@@ -25,46 +15,67 @@ export const getTrendMovies = async (page = 1, signal) => {
             },
           });   
     console.log(response);
-    return response.data;    
+    return response.data; 
+  } catch (err) {
+    throw new Error(err.message);
+  }   
 } 
 
 export const getMovieDetails = async id => {
+  try { 
     const response = await axios.get(`${BASE_URL}movie/${id}`, {
       params: {
         api_key: API_KEY,
-        language: 'en-US',
+        language: setLanguage,
       },
     });
     return response.data;
-  };
+  } catch (err) {
+    throw new Error(err.message);
+  }  
+};
   
-  export const getMovieCredits = async id => {
+export const getMovieCredits = async id => {
+  try { 
     const response = await axios.get(`${BASE_URL}movie/${id}/credits`, {
       params: {
         api_key: API_KEY,
-        language: 'en-US',
+        language: setLanguage,
       },
     });
     return response.data.cast;
-  };
+  } catch (err) {
+    throw new Error(err.message);
+  } 
+};
   
-  export const getMovieReviews = async id => {
+export const getMovieReviews = async id => {
+  try { 
     const response = await axios.get(`${BASE_URL}movie/${id}/reviews`, {
       params: {
         api_key: API_KEY,
-        language: 'en-US',
+        language: setLanguage,
       },
     });
     return response.data.results;
-  };
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
   
-  export const getSearchMovie = async query => {
+export const getSearchMovie = async (query, page = 1) => {    
+  try { 
     const response = await axios.get(`${BASE_URL}search/movie`, {
       params: {
         api_key: API_KEY,
-        language: 'en-US',
+        language: setLanguage,
         query: query,
+        page: page,
       },
     });
-    return response.data.results;
-  };
+    console.log(response.data);    
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
