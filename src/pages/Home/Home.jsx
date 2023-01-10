@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import Pagination from "components/Pagination/Pagination"
 import { toast } from "react-toastify";
 
 import MoviesList from "components/MoviesList/MoviesList"
 import { getTrendMovies } from "services/movieApi"
-import { Suspense } from "react";
 
 const customId = "custom-id-yes";
 
@@ -24,7 +23,7 @@ const Home = () => {
                 const response = await getTrendMovies(page)
                 setTrendMovies(() => [...response.results])
                 setTotal_pages(response.total_pages)
-                console.log(total_pages)
+                // console.log(total_pages)
                 if (page === 1 ) {
                 toast.success(`We found total results ${response.total_results}`
                 , { toastId: customId, position: "top-left", });}
@@ -51,8 +50,7 @@ const Home = () => {
         return 
     },[page, total_pages, trendMovies.length, checkResponse]   
     )
-   
-    
+       
     
     const handleChange = (e, p) => {
         setPage(p);

@@ -14,6 +14,7 @@ export default function Reviews() {
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState(false);
   const { movieId } = useParams();
+  // console.log(movieId);
 
   useEffect(() => {
     setLoader(true);

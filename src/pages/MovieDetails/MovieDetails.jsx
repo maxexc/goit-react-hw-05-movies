@@ -34,10 +34,12 @@ export default function MovieDetails() {
     async function fetchMovieDetailsCard() {
       try {
         const movieDetails = await getMovieDetails(movieId);
-        if (Object.keys(movieDetails).length === 0) {
-          console.log(Object.keys(movieDetails));
+        if (Object.keys(movieDetails).length === 0) {          
           return ;
-        }
+        } 
+        // console.log(Object.keys(movieDetails));
+        // console.log(movieDetails);
+
         setMovieDetails(movieDetails);
       } catch (error) {
         console.log(error);
@@ -51,7 +53,9 @@ export default function MovieDetails() {
   }, [movieId]);
 
   const location = useLocation();
+  // console.log(location);
   const backLinkLocation = location.state?.from ?? '/';  
+  // console.log(backLinkLocation);
 
   const { poster_path, title, release_date, vote_average, overview, genres } =
     movieDetails;

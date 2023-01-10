@@ -49,7 +49,6 @@ export const MovieTitle = styled.h3`
 export const LinkWrapper = styled.div`
   display: flex;
   gap: 75px;
-  /* gap: 10px; */
   margin-bottom: 20px;
   padding: 10px 0;
   margin-right: 14px;

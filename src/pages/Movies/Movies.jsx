@@ -7,6 +7,7 @@ import { getSearchMovie } from "services/movieApi";
 import { SearchBar } from "components/SearchBar/SearchBar";
 import MoviesList from "components/MoviesList/MoviesList"
 import Pagination from "components/Pagination/Pagination";
+import { toast } from "react-toastify";
 
 const Movies = () => {
     const [page, setPage] = useState(1);
@@ -22,6 +23,7 @@ const Movies = () => {
         setSearchParams(nextParams);
       };
     
+    const customId = "custom-id-yes";
 
     useEffect(() => {
         if (!searchedMovie) return
@@ -34,7 +36,11 @@ const Movies = () => {
                 setMovies(response.results)
                 setTotal_pages(response.total_pages)
                 console.log(total_pages)
-
+                
+                if (page === 1) {
+                toast.success(`${response.total_results} matches found for your query`
+                , { toastId: customId, position: "top-left", })
+                }
                 if (response.total_pages === 0) {
                     setResponseEmpty(true)
                 }
