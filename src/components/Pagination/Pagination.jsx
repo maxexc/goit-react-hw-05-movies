@@ -1,19 +1,35 @@
-import { PaginationPanel, PaginationWrapper } from "./Pagination.styled";
+import ReactPaginate from "react-paginate";
+import './Pagination.css';
 
-const Pagination = ({ page, onChange, total_pages  }) => {
-    // const count = 100
+function Pagination({ currentPage, setPage, total_pages  }) {
+    const handlePageClick = event => {
+        setPage({ page: event.selected + 1 });
+      };
     return (
-        <PaginationWrapper>
-            <PaginationPanel
-                count={total_pages}
-                size="large"
-                page={page}
-                variant="outlined"
-                shape="rounded"
-                onChange={onChange }
+        <>
+            <ReactPaginate
+                nextLabel=">"
+                onPageChange={handlePageClick }
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={total_pages}
+                forcePage={currentPage}
+                previousLabel="<"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={null}
             />
-        </PaginationWrapper>
+        </>
     )
 }
 
-export default Pagination
+export default Pagination;

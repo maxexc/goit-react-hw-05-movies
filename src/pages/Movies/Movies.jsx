@@ -10,13 +10,13 @@ import Pagination from "components/Pagination/Pagination";
 import { toast } from "react-toastify";
 
 const Movies = () => {
-    const [page, setPage] = useState(1);
     const [total_pages, setTotal_pages] = useState(null)
     const [movies, setMovies] = useState([])
     const [responseEmpty, setResponseEmpty] = useState(false)
     const [responsePagination, setResponsePagination] = useState(false)
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()    
     const searchedMovie = searchParams.get("query") ?? ""
+    const pageParam = Number(searchParams.get('page') ?? 1);
     
     const updateQueryString = query => {
         const nextParams = query !== '' ? { query } : {};
@@ -30,14 +30,14 @@ const Movies = () => {
         async function getMoviesById() {
             
             try {
-                const response = await getSearchMovie(searchedMovie, page)
+                const response = await getSearchMovie(searchedMovie, pageParam)
                 
                 console.log(response)
                 setMovies(response.results)
                 setTotal_pages(response.total_pages)
                 console.log(total_pages)
                 
-                if (page === 1) {
+                if (pageParam === 1) {
                 toast.success(`${response.total_results} matches found for your query`
                 , { toastId: customId, position: "top-left", })
                 }
@@ -57,20 +57,22 @@ const Movies = () => {
        }
        getMoviesById()
        return 
-    },[searchedMovie, page, total_pages])
-
-    const handleChange = (e, p) => {
-        setPage(p);
-    };
+    },[searchedMovie, pageParam, total_pages])
 
     return (
         <>   
             <Suspense fallback={<div>Loading subpage...</div>}>
                 <SearchBar onSubmit={updateQueryString} />
-                {responsePagination && <Pagination page={page} total_pages={total_pages} onChange={handleChange} />}
+
+                {responsePagination && <Pagination currentPage={pageParam-1} total_pages={total_pages} 
+                setPage={page => setSearchParams({ query: searchedMovie, ...page })} />}
+
                 <MoviesList Movies={movies}/>
                 {responseEmpty && <h1 style={{ textAlign: "center" }}>No results were found for {searchedMovie}</h1>}
-                {responsePagination && <Pagination page={page} total_pages={total_pages} onChange={handleChange} />}
+
+                {responsePagination && <Pagination currentPage={pageParam-1} total_pages={total_pages} 
+                setPage={page => setSearchParams({ query: searchedMovie, ...page })} />}
+
             </Suspense>
         </>
     )
